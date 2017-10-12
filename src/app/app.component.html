@@ -4,8 +4,11 @@
 
     <!-- This fills the remaining space of the current row -->
     <span class="fill-remaining-space"></span>
-
-    <button mat-button>News</button>
-    <button mat-button>Stocks</button>
+    <nav>
+      <a mat-button routerLink="/news" routerLinkActive="mat-accent">News</a>
+      <a mat-button routerLink="/stocks" routerLinkActive="mat-accent">Stocks</a>
+    </nav>
   </mat-toolbar>
 </div>
+
+<router-outlet></router-outlet>
