@@ -10,6 +10,7 @@ import { StocksComponent } from './stocks/stocks.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import {HttpClientModule} from '@angular/common/http';
 import {MarketService} from './services/market.service';
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 const appRoutes: Routes = [
   { path: 'news',
@@ -36,6 +37,8 @@ const appRoutes: Routes = [
     HttpClientModule,
     RouterModule,
     MaterialModule,
+    FormsModule,
+    ReactiveFormsModule,
     RouterModule.forRoot(
       appRoutes
     )

@@ -1,3 +1,23 @@
-<p>
-  news works!
-</p>
+<div class="centered_horizontal_flow_section">
+  <div class="search_bar_query">
+    <form class="full_width">
+      <mat-form-field class="full_width">
+        <input type="text" placeholder="Company Name" matInput [formControl]="searchControl" [matAutocomplete]="auto">
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option *ngFor="let companyName of filteredCompanyNames | async" [value]="companyName">
+            {{ companyName }}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </form>
+  </div>
+  <div class="search_bar_button">
+    <button mat-button color="primary">Search</button>
+  </div>
+</div>
+
+<div class="centered_horizontal_flow_section">
+  <div id="newsCards" class = "centered_vertical_flow_section">
+  </div>
+</div>
+
