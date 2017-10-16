@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   MatToolbarModule, MatButtonModule, MatCheckboxModule, MatAutocompleteModule,
-  MatInputModule
+  MatInputModule, MatCardModule, MatChipsModule, MatIconModule
 } from '@angular/material';
 
 
@@ -13,14 +13,20 @@ import {
     MatCheckboxModule,
     MatToolbarModule,
     MatAutocompleteModule,
-    MatInputModule
+    MatInputModule,
+    MatCardModule,
+    MatChipsModule,
+    MatIconModule
   ],
   exports: [
     MatButtonModule,
     MatCheckboxModule,
     MatToolbarModule,
     MatAutocompleteModule,
-    MatInputModule
+    MatInputModule,
+    MatCardModule,
+    MatChipsModule,
+    MatIconModule
   ],
   declarations: []
 })

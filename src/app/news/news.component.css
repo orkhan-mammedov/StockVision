@@ -20,6 +20,57 @@
   padding-top: 15px;
 }
 
+.news_card{
+  padding: 5px;
+  min-width: 200px;
+  max-width: 900px;
+}
+
+.load_more_button {
+  padding: 5px;
+}
+
+.company_chips_container {
+  padding-top: 5px;
+}
+
 .full_width {
   width: 100%;
 }
+
+a:link {
+  text-decoration: none;
+}
+
+a:visited {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+a:active {
+  text-decoration: underline;
+}
+
+/* unvisited link */
+a:link {
+  color: black;
+}
+
+/* visited link */
+a:visited {
+  color: black;
+}
+
+/* mouse over link */
+a:hover {
+  color: #3f51b5;
+}
+
+/* selected link */
+a:active {
+  color: #ff4081;
+}
+

@@ -1,23 +1,46 @@
-<div class="centered_horizontal_flow_section">
-  <div class="search_bar_query">
-    <form class="full_width">
+<form #f="ngForm" class="full_width" (ngSubmit)="search()">
+  <div class="centered_horizontal_flow_section">
+    <div class="search_bar_button" *ngIf="backToLatestNewsPossible">
+      <button mat-icon-button color="primary" (click)="latestNews()">
+        <i class="material-icons">arrow_back</i>
+      </button>
+    </div>
+    <div class="search_bar_query">
       <mat-form-field class="full_width">
-        <input type="text" placeholder="Company Name" matInput [formControl]="searchControl" [matAutocomplete]="auto">
+        <input type="text" placeholder="Company Name" matInput [formControl]="searchControl" [matAutocomplete]="auto"
+               ngModel>
         <mat-autocomplete #auto="matAutocomplete">
           <mat-option *ngFor="let companyName of filteredCompanyNames | async" [value]="companyName">
             {{ companyName }}
           </mat-option>
         </mat-autocomplete>
       </mat-form-field>
-    </form>
+    </div>
+    <div class="search_bar_button">
+      <button mat-button color="primary" type="submit">Search</button>
+    </div>
   </div>
-  <div class="search_bar_button">
-    <button mat-button color="primary">Search</button>
+</form>
+
+<div class="centered_horizontal_flow_section" [ngSwitch]="newsCards">
+  <div *ngSwitchCase="null"><mat-spinner></mat-spinner></div>
+  <div class = "centered_vertical_flow_section" *ngSwitchDefault>
+    <div class="news_card" *ngFor="let newsCard of currentNewsCards">
+      <mat-card>
+        <mat-card-title><a href="{{ newsCard.url }}" target="_blank">{{ newsCard.headline }}</a></mat-card-title>
+        <mat-card-subtitle>{{ newsCard.source }}</mat-card-subtitle>
+        <mat-card-content>
+          <div>{{ newsCard.summary }}</div>
+          <div class="company_chips_container">
+            <mat-chip-list>
+              <mat-chip color="accent" selected="true" *ngFor="let company of newsCard.related.split(',') "> {{ company }} </mat-chip>
+            </mat-chip-list>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <div class="load_more_button" align="center" *ngIf="loadMoreNewsPossible">
+      <button mat-button color="primary" (click)="loadMoreNewsCards()">Load More</button>
+    </div>
   </div>
 </div>
-
-<div class="centered_horizontal_flow_section">
-  <div id="newsCards" class = "centered_vertical_flow_section">
-  </div>
-</div>
-
