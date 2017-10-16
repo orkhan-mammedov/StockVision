@@ -1,7 +1,7 @@
 <form #f="ngForm" class="full_width" (ngSubmit)="search()">
   <div class="centered_horizontal_flow_section">
     <div class="search_bar_button" *ngIf="backToLatestNewsPossible">
-      <button mat-icon-button color="primary" (click)="latestNews()">
+      <button mat-icon-button color="primary" (click)="latestNews()" type="button">
         <i class="material-icons">arrow_back</i>
       </button>
     </div>
@@ -25,6 +25,7 @@
 <div class="centered_horizontal_flow_section" [ngSwitch]="newsCards">
   <div *ngSwitchCase="null"><mat-spinner></mat-spinner></div>
   <div class = "centered_vertical_flow_section" *ngSwitchDefault>
+    <div *ngIf="newsCards.length === 0">No news found!</div>
     <div class="news_card" *ngFor="let newsCard of currentNewsCards">
       <mat-card>
         <mat-card-title><a href="{{ newsCard.url }}" target="_blank">{{ newsCard.headline }}</a></mat-card-title>
@@ -44,3 +45,4 @@
     </div>
   </div>
 </div>
+

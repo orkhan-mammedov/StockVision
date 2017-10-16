@@ -87,7 +87,7 @@ export class NewsComponent implements OnInit {
     }
 
     if (companySymbol == null || isUndefined(companySymbol) || companySymbol === '') {
-      return;
+      companySymbol = 'null_company'; // this will return no results, which is what we want
     }
 
     const companyNews: Observable<NewsCard[]> = this.marketService.getCompanyNews(companySymbol);
