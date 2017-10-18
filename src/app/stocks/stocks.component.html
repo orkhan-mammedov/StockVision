@@ -1,3 +1,19 @@
-<p>
-  stocks works!
-</p>
+<form #f="ngForm" class="full_width" (ngSubmit)="search()">
+  <div class="centered_horizontal_flow_section">
+    <div class="search_bar_query">
+      <mat-form-field class="full_width">
+        <input type="text" placeholder="Company Name" matInput [formControl]="searchControl" [matAutocomplete]="auto" ngModel>
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option *ngFor="let companyName of filteredCompanyNames | async" [value]="companyName">
+            {{ companyName }}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </div>
+    <div class="search_bar_button">
+      <button mat-button color="primary" type="submit">Search</button>
+    </div>
+  </div>
+</form>
+
+<app-stock-snapshot [companyName]="'Apple'" [companySymbol]="'APPL'" [marketCapitalization]="52000000" [stockPrice]="95" [stockPriceChange]="-4.3" [week52high]="100" [week52low]="90"></app-stock-snapshot>

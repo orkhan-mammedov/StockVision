@@ -1,3 +1,32 @@
 .fill-remaining-space {
   flex: 1 1 auto;
 }
+.centered_vertical_flow_section {
+  display: flex;
+  flex-wrap: wrap; /*TODO: consider without wrapping*/
+  flex-direction: column;
+  justify-content: center;
+}
+
+.centered_horizontal_flow_section {
+  display: flex;
+  flex-wrap: wrap; /*TODO: consider without wrapping*/
+  justify-content: center;
+}
+
+.search_bar_query{
+  width: 65%;
+  padding: 5px;
+}
+
+.search_bar_button{
+  padding-top: 15px;
+}
+
+.load_more_button {
+  padding: 5px;
+}
+
+.full_width {
+  width: 100%;
+}

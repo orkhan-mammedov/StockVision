@@ -1,0 +1,39 @@
+.stock_snapshot_card {
+  padding: 5px;
+  min-width: 200px;
+  max-width: 500px;
+}
+
+.table {
+  width: 100%;
+  table-layout: fixed; /*TODO: Consider Removing */
+}
+
+.table_cell_min {
+  width: 1%;
+  white-space: nowrap;
+  padding: 5px;
+  text-align: left
+}
+
+.table_cell {
+  width: auto;
+  padding: 5px;
+  text-align: left
+}
+
+.large_font {
+  font-size:large;
+}
+
+.x_large_font {
+  font-size: x-large;
+}
+
+.large_font {
+  font-size:large;
+}
+
+.helper_text {
+  color: #757575
+}

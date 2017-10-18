@@ -1,0 +1,42 @@
+<div class="stock_snapshot_card">
+  <mat-card>
+    <table class = "table">
+      <tr>
+        <th class="table_cell"><div class="x_large_font">{{ companyName }}</div></th>
+        <td class="table_cell" rowspan="2">
+          <div class="large_font"> {{ stockPriceChange }} </div> <!-- TODO: Add logic for showing + and - signs -->
+        </td>
+        <td class="table_cell" rowspan="2">
+          <div class="large_font"> {{ stockPrice }} </div>
+        </td>
+      </tr>
+      <tr>
+        <td class="table_cell_min"><div class="helper_text">{{ companySymbol }}</div></td>
+      </tr>
+      <tr>
+        <td class="table_cell">
+          <span class="helper_text">Market Capitalization:</span>
+        </td>
+        <td class="table_cell_min">
+          <span>{{ marketCapitalization }}</span>
+        </td>
+      </tr>
+      <tr>
+        <td class="table_cell">
+          <span class="helper_text">52 Week High:</span>
+        </td>
+        <td class="table_cell_min">
+          <span>{{ week52high }}</span>
+        </td>
+      </tr>
+      <tr>
+        <td class="table_cell">
+          <span class="helper_text">52 Week Low:</span>
+        </td>
+        <td class="table_cell_min">
+          <span>{{ week52low }}</span>
+        </td>
+      </tr>
+    </table>
+  </mat-card>
+</div>

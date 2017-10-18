@@ -10,11 +10,15 @@ import { StocksComponent } from './stocks/stocks.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import {HttpClientModule} from '@angular/common/http';
 import {MarketService} from './services/market.service';
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { StockDetailComponent } from './stock-detail/stock-detail.component';
+import { StockSnapshotComponent } from './stock-snapshot/stock-snapshot.component';
 
 const appRoutes: Routes = [
   { path: 'news',
     component: NewsComponent },
+  { path: 'stocks/:id',
+    component: StockDetailComponent },
   { path: 'stocks',
     component: StocksComponent },
   { path: '',
@@ -29,7 +33,9 @@ const appRoutes: Routes = [
     AppComponent,
     NewsComponent,
     StocksComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    StockDetailComponent,
+    StockSnapshotComponent
   ],
   imports: [
     BrowserModule,
