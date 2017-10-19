@@ -16,4 +16,60 @@
   </div>
 </form>
 
-<app-stock-snapshot [companyName]="'Apple'" [companySymbol]="'APPL'" [marketCapitalization]="52000000" [stockPrice]="95" [stockPriceChange]="-4.3" [week52high]="100" [week52low]="90"></app-stock-snapshot>
+<div class="centered_horizontal_flow_section">
+  <div class="centered_vertical_flow_section tabs_holder">
+    <mat-tab-group mat-stretch-tabs>
+      <mat-tab label="Most Active">
+        <div class="centered_vertical_flow_section tabs_holder" [ngSwitch]="mostActiveStocks">
+          <div *ngSwitchCase="null"><mat-spinner></mat-spinner></div>
+          <div *ngSwitchDefault>
+            <div *ngFor="let mostActiveStock of mostActiveStocks">
+              <app-stock-snapshot [companyName]="mostActiveStock.companyName"
+                                  [companySymbol]="mostActiveStock.symbol"
+                                  [marketCapitalization]="mostActiveStock.marketCap"
+                                  [stockPrice]="mostActiveStock.latestPrice"
+                                  [stockPriceChange]="mostActiveStock.change"
+                                  [stockPriceChangePercentage]="mostActiveStock.changePercent"
+                                  [week52high]="mostActiveStock.week52High"
+                                  [week52low]="mostActiveStock.week52Low" ></app-stock-snapshot>
+            </div>
+          </div>
+        </div>
+      </mat-tab>
+      <mat-tab label="Gainers">
+        <div class="centered_vertical_flow_section tabs_holder" [ngSwitch]="mostActiveStocks">
+          <div *ngSwitchCase="null"><mat-spinner></mat-spinner></div>
+          <div *ngSwitchDefault>
+            <div *ngFor="let gainerStock of gainersStocks">
+              <app-stock-snapshot [companyName]="gainerStock.companyName"
+                                  [companySymbol]="gainerStock.symbol"
+                                  [marketCapitalization]="gainerStock.marketCap"
+                                  [stockPrice]="gainerStock.latestPrice"
+                                  [stockPriceChange]="gainerStock.change"
+                                  [stockPriceChangePercentage]="gainerStock.changePercent"
+                                  [week52high]="gainerStock.week52High"
+                                  [week52low]="gainerStock.week52Low" ></app-stock-snapshot>
+            </div>
+          </div>
+        </div>
+      </mat-tab>
+      <mat-tab label="Losers">
+        <div class="centered_vertical_flow_section tabs_holder" [ngSwitch]="mostActiveStocks">
+          <div *ngSwitchCase="null"><mat-spinner></mat-spinner></div>
+          <div *ngSwitchDefault>
+            <div *ngFor="let loserStock of losersStocks">
+              <app-stock-snapshot [companyName]="loserStock.companyName"
+                                  [companySymbol]="loserStock.symbol"
+                                  [marketCapitalization]="loserStock.marketCap"
+                                  [stockPrice]="loserStock.latestPrice"
+                                  [stockPriceChange]="loserStock.change"
+                                  [stockPriceChangePercentage]="loserStock.changePercent"
+                                  [week52high]="loserStock.week52High"
+                                  [week52low]="loserStock.week52Low" ></app-stock-snapshot>
+            </div>
+          </div>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</div>

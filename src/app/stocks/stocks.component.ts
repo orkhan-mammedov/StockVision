@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {MarketService} from '../services/market.service';
 import {FormControl} from '@angular/forms';
 import {Observable} from 'rxjs/Observable';
+import {StockSnapshot} from '../services/stock.snapshot.response';
 
 @Component({
   selector: 'app-stocks',
@@ -10,6 +11,9 @@ import {Observable} from 'rxjs/Observable';
 })
 export class StocksComponent implements OnInit {
   numberOfSuggestedCompanies = 5;
+  mostActiveStocks: StockSnapshot[];
+  gainersStocks: StockSnapshot[];
+  losersStocks: StockSnapshot[];
   companyNames: string[];
   companyNameToSymbolMap: Map<string, string>;
   filteredCompanyNames: Observable<string[]>;
@@ -27,6 +31,24 @@ export class StocksComponent implements OnInit {
     } else {
       this.companyNames = Array.from(this.companyNameToSymbolMap.keys());
     }
+
+    // Initialize mostActiveStocks
+    const mostActiveStocksObservable: Observable<StockSnapshot[]> = this.marketService.getStockSnapshots('mostactive');
+    mostActiveStocksObservable.subscribe(mostActiveStocks => {
+      this.mostActiveStocks = mostActiveStocks;
+    });
+
+    // Initialize gainersStocks
+    const gainersStocksObservable: Observable<StockSnapshot[]> = this.marketService.getStockSnapshots('gainers');
+    gainersStocksObservable.subscribe(gainersStocks => {
+      this.gainersStocks = gainersStocks;
+    });
+
+    // Initialize gainersStocks
+    const losersStocksObservable: Observable<StockSnapshot[]> = this.marketService.getStockSnapshots('losers');
+    losersStocksObservable.subscribe(losersStocks => {
+      this.losersStocks = losersStocks;
+    });
   }
 
   ngOnInit() {

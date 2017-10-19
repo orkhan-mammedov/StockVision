@@ -1,7 +1,7 @@
 .stock_snapshot_card {
   padding: 5px;
   min-width: 200px;
-  max-width: 500px;
+  max-width: 700px;
 }
 
 .table {
@@ -9,15 +9,7 @@
   table-layout: fixed; /*TODO: Consider Removing */
 }
 
-.table_cell_min {
-  width: 1%;
-  white-space: nowrap;
-  padding: 5px;
-  text-align: left
-}
-
 .table_cell {
-  width: auto;
   padding: 5px;
   text-align: left
 }
@@ -34,6 +26,23 @@
   font-size:large;
 }
 
+.small_font {
+  font-size:small;
+}
+
+.trend_position {
+  position: relative;
+  bottom: -5px;
+}
+
 .helper_text {
   color: #757575
+}
+
+.price_increase {
+  color: #3d9400
+}
+
+.price_decrease {
+  color: #dd4b39
 }

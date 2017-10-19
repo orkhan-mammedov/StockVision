@@ -1,0 +1,32 @@
+export class StockSnapshot {
+  symbol: string;
+  companyName: string;
+  primaryExchange: string;
+  sector: string;
+  calculationPrice: string;
+  latestPrice: string;
+  latestSource: string;
+  latestTime: string;
+  latestUpdate: string;
+  latestVolume: string;
+  iexRealtimePrice: string;
+  iexRealtimeSize: string;
+  iexLastUpdated: string;
+  delayedPrice: string;
+  delayedPriceTime: string;
+  previousClose: string;
+  change: string;
+  changePercent: string;
+  iexMarketPercent: string;
+  iexVolume: string;
+  avgTotalVolume: string;
+  iexBidPrice: string;
+  iexBidSize: string;
+  iexAskPrice: string;
+  iexAskSize: string;
+  marketCap: string;
+  peRatio: string;
+  week52High: string;
+  week52Low: string;
+  ytdChange: string;
+}

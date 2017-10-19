@@ -9,6 +9,7 @@ export class StockSnapshotComponent implements OnInit {
   @Input() companyName: string;
   @Input() companySymbol: string;
   @Input() stockPriceChange: number;
+  @Input() stockPriceChangePercentage: number;
   @Input() stockPrice: number;
   @Input() marketCapitalization: number;
   @Input() week52high: number;

@@ -4,6 +4,7 @@ import { SymbolResponse } from './symbol.response';
 import { Subject } from 'rxjs/Subject';
 import {NewsCard} from './news.card';
 import {Observable} from 'rxjs/Observable';
+import {StockSnapshot} from './stock.snapshot.response';
 
 @Injectable()
 export class MarketService {
@@ -48,6 +49,17 @@ export class MarketService {
     });
 
     return newsCards$;
+  }
+
+  getStockSnapshots(stocksType: string): Observable<StockSnapshot[]> {
+    const stockSnapshotsSubject: Subject<StockSnapshot[]> = new Subject<StockSnapshot[]>();
+    const stockSnapshots$: Observable<StockSnapshot[]> = stockSnapshotsSubject.asObservable();
+
+    this.httpClient.get<StockSnapshot[]>(this._getEndpointURL('/stock/market/list/' + stocksType)).subscribe(data => {
+      stockSnapshotsSubject.next(data);
+    });
+
+    return stockSnapshots$;
   }
 
   getCompanyNameToSymbolMap(): Map<string, string> {

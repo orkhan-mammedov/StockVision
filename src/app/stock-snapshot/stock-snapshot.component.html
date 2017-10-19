@@ -2,39 +2,51 @@
   <mat-card>
     <table class = "table">
       <tr>
-        <th class="table_cell"><div class="x_large_font">{{ companyName }}</div></th>
-        <td class="table_cell" rowspan="2">
-          <div class="large_font"> {{ stockPriceChange }} </div> <!-- TODO: Add logic for showing + and - signs -->
-        </td>
-        <td class="table_cell" rowspan="2">
-          <div class="large_font"> {{ stockPrice }} </div>
-        </td>
+        <th class="table_cell" colspan="2"><span class="x_large_font">{{ companyName }}</span> <span class="helper_text">({{ companySymbol }})</span></th>
       </tr>
       <tr>
-        <td class="table_cell_min"><div class="helper_text">{{ companySymbol }}</div></td>
-      </tr>
-      <tr>
+        <th class="table_cell">
+          <div class="large_font"> Price </div>
+        </th>
         <td class="table_cell">
-          <span class="helper_text">Market Capitalization:</span>
-        </td>
-        <td class="table_cell_min">
-          <span>{{ marketCapitalization }}</span>
+          <span class="large_font"> {{ stockPrice.toLocaleString() }} </span> <span class="helper_text small_font">USD</span>
         </td>
       </tr>
-      <tr>
+      <tr  valign="bottom">
+        <th class="table_cell">
+          <div class="large_font"> Change </div>
+        </th>
         <td class="table_cell">
-          <span class="helper_text">52 Week High:</span>
-        </td>
-        <td class="table_cell_min">
-          <span>{{ week52high }}</span>
+          <span class="large_font price_increase" *ngIf="stockPriceChange > 0"> {{ stockPriceChange.toLocaleString() }} ({{ stockPriceChangePercentage.toLocaleString() }}%) </span>
+          <span class="trend_position price_increase" *ngIf="stockPriceChange > 0"><i class="material-icons">trending_up</i></span>
+          <span class="large_font price_decrease" *ngIf="stockPriceChange < 0"> {{ (- stockPriceChange).toLocaleString() }} ({{ (- stockPriceChangePercentage).toLocaleString() }}%) </span>
+          <span class="trend_position price_decrease" *ngIf="stockPriceChange < 0"><i class="material-icons">trending_down</i></span>
+          <span class="large_font" *ngIf="stockPriceChange == 0"> {{ stockPriceChange.toLocaleString() }} ({{ stockPriceChangePercentage.toLocaleString() }}%) </span>
+          <span *ngIf="stockPriceChange == 0"><i class="material-icons">trending_flat</i></span>
         </td>
       </tr>
       <tr>
         <td class="table_cell">
-          <span class="helper_text">52 Week Low:</span>
+          <div> Market Capitalization </div>
         </td>
-        <td class="table_cell_min">
-          <span>{{ week52low }}</span>
+        <td class="table_cell">
+          <div> {{ marketCapitalization.toLocaleString() }} </div>
+        </td>
+      </tr>
+      <tr>
+        <td class="table_cell">
+          <div> 52 Week High </div>
+        </td>
+        <td class="table_cell">
+          <div> {{ week52high.toLocaleString() }} </div>
+        </td>
+      </tr>
+      <tr>
+        <td class="table_cell">
+          <div> 52 Week Low </div>
+        </td>
+        <td class="table_cell">
+          <div> {{ week52low.toLocaleString() }} </div>
         </td>
       </tr>
     </table>
