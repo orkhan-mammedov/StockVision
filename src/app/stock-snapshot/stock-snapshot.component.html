@@ -2,7 +2,7 @@
   <mat-card>
     <table class = "table">
       <tr>
-        <th class="table_cell" colspan="2"><span class="x_large_font">{{ companyName }}</span> <span class="helper_text">({{ companySymbol }})</span></th>
+        <th class="table_cell" colspan="2"><a [routerLink]="['/stocks', companySymbol]"><span class="x_large_font">{{ companyName }}</span></a> <span class="helper_text">({{ companySymbol }})</span></th>
       </tr>
       <tr>
         <th class="table_cell">

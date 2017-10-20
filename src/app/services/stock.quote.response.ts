@@ -1,9 +1,13 @@
-export class StockSnapshot {
+export class StockQuote {
   symbol: string;
   companyName: string;
   primaryExchange: string;
   sector: string;
   calculationPrice: number;
+  open: number;
+  openTime: number;
+  close: number;
+  closeTime: number;
   latestPrice: number;
   latestSource: string;
   latestTime: string;

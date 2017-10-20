@@ -1,0 +1,11 @@
+@import url("../app.component.css");
+
+.header_container {
+  padding: 10px;
+}
+
+.stock_detail_card {
+  padding: 5px;
+  min-width: 200px;
+  max-width: 900px;
+}

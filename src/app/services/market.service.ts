@@ -5,6 +5,9 @@ import { Subject } from 'rxjs/Subject';
 import {NewsCard} from './news.card';
 import {Observable} from 'rxjs/Observable';
 import {StockSnapshot} from './stock.snapshot.response';
+import {CompanyDetails} from './company.details.response';
+import {StockQuote} from './stock.quote.response';
+import {StockKeyStats} from './stock.key.stats.response';
 
 @Injectable()
 export class MarketService {
@@ -60,6 +63,39 @@ export class MarketService {
     });
 
     return stockSnapshots$;
+  }
+
+  getCompanyDetails(companySymbol: string): Observable<CompanyDetails> {
+    const companyDetailsSubject: Subject<CompanyDetails> = new Subject<CompanyDetails>();
+    const companyDetails$: Observable<CompanyDetails> = companyDetailsSubject.asObservable();
+
+    this.httpClient.get<CompanyDetails>(this._getEndpointURL('/stock/' + companySymbol + '/company' )).subscribe(data => {
+      companyDetailsSubject.next(data);
+    });
+
+    return companyDetails$;
+  }
+
+  getStockQuote(companySymbol: string): Observable<StockQuote> {
+    const stockQuoteSubject: Subject<StockQuote> = new Subject<StockQuote>();
+    const stockQuote$: Observable<StockQuote> = stockQuoteSubject.asObservable();
+
+    this.httpClient.get<StockQuote>(this._getEndpointURL('/stock/' + companySymbol + '/quote' )).subscribe(data => {
+      stockQuoteSubject.next(data);
+    });
+
+    return stockQuote$;
+  }
+
+  getStockKeyStats(companySymbol: string): Observable<StockKeyStats> {
+    const stockKeyStatsSubject: Subject<StockKeyStats> = new Subject<StockKeyStats>();
+    const stockKeyStats$: Observable<StockKeyStats> = stockKeyStatsSubject.asObservable();
+
+    this.httpClient.get<StockKeyStats>(this._getEndpointURL('/stock/' + companySymbol + '/stats' )).subscribe(data => {
+      stockKeyStatsSubject.next(data);
+    });
+
+    return stockKeyStats$;
   }
 
   getCompanyNameToSymbolMap(): Map<string, string> {

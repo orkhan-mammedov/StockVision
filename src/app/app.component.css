@@ -30,3 +30,47 @@
 .full_width {
   width: 100%;
 }
+
+/* Stocks related styles */
+.table {
+  width: 100%;
+  table-layout: fixed; /*TODO: Consider Removing */
+}
+
+.table_cell {
+  padding: 5px;
+  text-align: left
+}
+
+.large_font {
+  font-size:large;
+}
+
+.x_large_font {
+  font-size: x-large;
+}
+
+.large_font {
+  font-size:large;
+}
+
+.small_font {
+  font-size:small;
+}
+
+.trend_position {
+  position: relative;
+  bottom: -5px;
+}
+
+.helper_text {
+  color: #757575
+}
+
+.price_increase {
+  color: #3d9400
+}
+
+.price_decrease {
+  color: #dd4b39
+}

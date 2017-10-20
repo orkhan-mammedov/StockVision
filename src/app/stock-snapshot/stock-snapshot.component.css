@@ -1,48 +1,31 @@
+@import url("../app.component.css");
+
 .stock_snapshot_card {
   padding: 5px;
   min-width: 200px;
   max-width: 700px;
 }
 
-.table {
-  width: 100%;
-  table-layout: fixed; /*TODO: Consider Removing */
+/* unvisited link */
+a:link {
+  color: black;
 }
 
-.table_cell {
+/* visited link */
+a:visited {
+  color: black;
+}
+
+/* mouse over link */
+a:hover {
+  color: #3f51b5;
+}
+
+/* selected link */
+a:active {
+  color: #ff4081;
+}
+
+.back_button_container {
   padding: 5px;
-  text-align: left
-}
-
-.large_font {
-  font-size:large;
-}
-
-.x_large_font {
-  font-size: x-large;
-}
-
-.large_font {
-  font-size:large;
-}
-
-.small_font {
-  font-size:small;
-}
-
-.trend_position {
-  position: relative;
-  bottom: -5px;
-}
-
-.helper_text {
-  color: #757575
-}
-
-.price_increase {
-  color: #3d9400
-}
-
-.price_decrease {
-  color: #dd4b39
 }
