@@ -2,24 +2,25 @@
   <div class="centered_vertical_flow_section tabs_holder">
     <div *ngIf="stockKeyStatsRetrieved && stockQuoteRetrieved && companyDetailsRetrieved">
       <div class="header_container">
-        <span>
+        <span class="inline_centered">
           <button mat-icon-button color="primary" routerLink="/stocks" type="button">
             <i class="material-icons">arrow_back</i>
           </button>
         </span>
-        <span class="x_large_font">{{ companyName }}</span> <span class="helper_text">({{ companySymbol }})</span>
-        <span><img src="{{ companyLogoUrl }}" alt="Company Logo"></span>
+        <span class="x_large_font inline_centered">{{ companyName }}</span> <span class="helper_text">({{ companySymbol }})</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <span class="inline_centered"><img class="resize" src="{{ companyLogoUrl }}" alt="Company Logo"></span>
       </div>
       <div class="stock_detail_card">
         <mat-card>
           <table class = "table">
             <tr>
-              <td class="table_cell" colspan="2" rowspan="2">Description: {{ companyDescription }}</td>
-              <td class="table_cell">Price: {{ stockPrice?.toLocaleString() }}</td>
+              <td class="table_cell" colspan="2" rowspan="2"><b> Description: </b> {{ companyDescription }}</td>
+              <td class="table_cell"><b> Price: </b> {{ stockPrice?.toLocaleString() }} <span class="helper_text small_font">USD</span></td>
             </tr>
             <tr>
-              <td class="table_cell">Change:
-                <span class="price_increase" *ngIf="stockPriceChange > 0"> {{ stockPriceChange?.toLocaleString() }} ({{ stockPriceChangePercentage?.toLocaleString() }}%) </span>
+              <td class="table_cell"><b> Change:</b>
+              <span class="price_increase" *ngIf="stockPriceChange > 0"> {{ stockPriceChange?.toLocaleString() }} ({{ stockPriceChangePercentage?.toLocaleString() }}%) </span>
                 <span class="trend_position price_increase" *ngIf="stockPriceChange > 0"><i class="material-icons">trending_up</i></span>
                 <span class=" price_decrease" *ngIf="stockPriceChange < 0"> {{ (- stockPriceChange)?.toLocaleString() }} ({{ (- stockPriceChangePercentage)?.toLocaleString() }}%) </span>
                 <span class="trend_position price_decrease" *ngIf="stockPriceChange < 0"><i class="material-icons">trending_down</i></span>
@@ -28,39 +29,48 @@
               </td>
             </tr>
             <tr>
-              <td class="table_cell" colspan="2" rowspan="2">CEO: {{ companyCEO }}</td>
-              <td class="table_cell">52 Week High: {{ week52high?.toLocaleString() }}</td>
+              <td class="table_cell" colspan="2" rowspan="2"><b> CEO:</b>  {{ companyCEO }}</td>
+              <td class="table_cell"><b> 52 Week High:</b>  {{ week52high?.toLocaleString() }}</td>
             </tr>
             <tr>
-              <td class="table_cell">52 Week Low: {{ week52low?.toLocaleString() }}</td>
+              <td class="table_cell"><b> 52 Week Low: </b> {{ week52low?.toLocaleString() }}</td>
             </tr>
             <tr>
-              <td class="table_cell" colspan="2" rowspan="2">Industry: {{ companyIndustry }}</td>
-              <td class="table_cell">Dividend Yield: {{ stockDividendYield?.toLocaleString() }}</td>
+              <td class="table_cell" colspan="2" rowspan="2"><b> Industry: </b> {{ companyIndustry }}</td>
+              <td class="table_cell"><b> Dividend Yield:</b>  {{ stockDividendYield?.toLocaleString() }}%</td>
             </tr>
             <tr>
-              <td class="table_cell">Market Capitalization: {{ marketCapitalization?.toLocaleString() }}</td>
+              <td class="table_cell"><b> Market Capitalization: </b> {{ marketCapitalization }}</td>
             </tr>
             <tr>
-              <td class="table_cell" colspan="2" rowspan="2">Sector: {{ companySector }}</td>
-              <td class="table_cell">Revenue: {{ companyRevenue?.toLocaleString() }}</td>
+              <td class="table_cell" colspan="2" rowspan="2"><b> Sector: </b> {{ companySector }}</td>
+              <td class="table_cell"><b> Revenue: </b> {{ companyRevenue }}</td>
             </tr>
             <tr>
-              <td class="table_cell">Gross Profit: {{ companyGrossProfit?.toLocaleString() }}</td>
+              <td class="table_cell"><b> Gross Profit: </b> {{ companyGrossProfit }}</td>
             </tr>
             <tr>
-              <td class="table_cell" colspan="2" rowspan="2">Website: {{ companyWebsite }}</td>
-              <td class="table_cell">Cash: {{ companyCash?.toLocaleString() }}</td>
+              <td class="table_cell" colspan="2" rowspan="2"><b> Website: </b> <a href="{{ companyWebsite }}" target="_blank">{{ companyWebsiteFormatted }}</a></td>
+              <td class="table_cell"><b> Cash: </b> {{ companyCash }}</td>
             </tr>
             <tr>
-              <td class="table_cell">Debt: {{ companyDebt?.toLocaleString() }}</td>
+              <td class="table_cell"><b> Debt: </b> {{ companyDebt }}</td>
             </tr>
           </table>
         </mat-card>
       </div>
     </div>
-    <div *ngIf="!(stockKeyStatsRetrieved && stockQuoteRetrieved && companyDetailsRetrieved)">
+    <div *ngIf="!(stockKeyStatsRetrieved && stockQuoteRetrieved && companyDetailsRetrieved) && stockFound">
       <mat-spinner></mat-spinner>
+    </div>
+    <div *ngIf="!stockFound">
+      <div class="header_container">
+        <button mat-button color="primary" routerLink="/stocks" type="button"> Back to Stocks</button>
+      </div>
+      <div class="header_container">
+        No stock was found!
+      </div>
     </div>
   </div>
 </div>
+

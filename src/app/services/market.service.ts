@@ -8,6 +8,7 @@ import {StockSnapshot} from './stock.snapshot.response';
 import {CompanyDetails} from './company.details.response';
 import {StockQuote} from './stock.quote.response';
 import {StockKeyStats} from './stock.key.stats.response';
+import {CompanyLogo} from './company.logo.response';
 
 @Injectable()
 export class MarketService {
@@ -74,6 +75,17 @@ export class MarketService {
     });
 
     return companyDetails$;
+  }
+
+  getCompanyLogo(companySymbol: string): Observable<CompanyLogo> {
+    const companyLogoSubject: Subject<CompanyLogo> = new Subject<CompanyLogo>();
+    const companyLogo$: Observable<CompanyLogo> = companyLogoSubject.asObservable();
+
+    this.httpClient.get<CompanyLogo>(this._getEndpointURL('/stock/' + companySymbol + '/logo' )).subscribe(data => {
+      companyLogoSubject.next(data);
+    });
+
+    return companyLogo$;
   }
 
   getStockQuote(companySymbol: string): Observable<StockQuote> {

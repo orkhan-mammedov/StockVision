@@ -9,3 +9,33 @@
   min-width: 200px;
   max-width: 900px;
 }
+
+/* unvisited link */
+a:link {
+  color: black;
+}
+
+/* visited link */
+a:visited {
+  color: black;
+}
+
+/* mouse over link */
+a:hover {
+  color: #3f51b5;
+}
+
+/* selected link */
+a:active {
+  color: #ff4081;
+}
+
+.inline_centered {
+  display:inline-block;
+  vertical-align:middle
+}
+
+img.resize {
+  max-width:50%;
+  max-height:50%;
+}

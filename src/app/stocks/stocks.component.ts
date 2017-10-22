@@ -3,6 +3,8 @@ import {MarketService} from '../services/market.service';
 import {FormControl} from '@angular/forms';
 import {Observable} from 'rxjs/Observable';
 import {StockSnapshot} from '../services/stock.snapshot.response';
+import {isUndefined} from 'util';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-stocks',
@@ -19,7 +21,7 @@ export class StocksComponent implements OnInit {
   filteredCompanyNames: Observable<string[]>;
   searchControl: FormControl = new FormControl();
 
-  constructor(private marketService: MarketService) {
+  constructor(private marketService: MarketService,  private router: Router) {
     // Initiate companyNameToSymbolMap to facilitate search functionality
     this.filteredCompanyNames = null;
     this.companyNameToSymbolMap = this.marketService.getCompanyNameToSymbolMap();
@@ -58,7 +60,23 @@ export class StocksComponent implements OnInit {
   }
 
   search() {
-    // TODO: Implement search logic
+    let companySymbol: string;
+    if (this.searchControl.value === '') {
+      return;
+    }
+
+    if (this.companyNameToSymbolMap.has(this.searchControl.value)) {
+      companySymbol = this.companyNameToSymbolMap.get(this.searchControl.value);
+    } else {
+      const suggestedCompanies:  string[] = this.filter(this.searchControl.value);
+      companySymbol = this.companyNameToSymbolMap.get(suggestedCompanies[0]);
+    }
+
+    if (companySymbol == null || isUndefined(companySymbol) || companySymbol === '') {
+      companySymbol = 'null_company'; // this will return no results, which is what we want
+    }
+
+    this.router.navigate(['/stocks', companySymbol]);
   }
 
   private filter(val: string): string[] {

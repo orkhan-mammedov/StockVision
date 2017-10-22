@@ -1,6 +1,6 @@
 export class StockKeyStats {
   companyName: string;
-  marketCap: number;
+  marketcap: number;
   beta: number;
   week52High: number;
   week52Low: number;
