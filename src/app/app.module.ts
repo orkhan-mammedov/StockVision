@@ -13,6 +13,7 @@ import {MarketService} from './services/market.service';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { StockDetailComponent } from './stock-detail/stock-detail.component';
 import { StockSnapshotComponent } from './stock-snapshot/stock-snapshot.component';
+import {ChartsModule} from 'ng2-charts';
 
 const appRoutes: Routes = [
   { path: 'news',
@@ -45,6 +46,7 @@ const appRoutes: Routes = [
     MaterialModule,
     FormsModule,
     ReactiveFormsModule,
+    ChartsModule,
     RouterModule.forRoot(
       appRoutes
     )

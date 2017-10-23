@@ -9,6 +9,7 @@ import {CompanyDetails} from './company.details.response';
 import {StockQuote} from './stock.quote.response';
 import {StockKeyStats} from './stock.key.stats.response';
 import {CompanyLogo} from './company.logo.response';
+import {StockChartPoint} from './stock.chart.point.response';
 
 @Injectable()
 export class MarketService {
@@ -108,6 +109,17 @@ export class MarketService {
     });
 
     return stockKeyStats$;
+  }
+
+  getStockChartPoints(companySymbol: string, range: string): Observable<StockChartPoint[]> {
+    const stockChartPointsSubject: Subject<StockChartPoint[]> = new Subject<StockChartPoint[]>();
+    const stockChartPoints$: Observable<StockChartPoint[]> = stockChartPointsSubject.asObservable();
+
+    this.httpClient.get<StockChartPoint[]>(this._getEndpointURL('/stock/' + companySymbol + '/chart/' + range)).subscribe(data => {
+      stockChartPointsSubject.next(data);
+    });
+
+    return stockChartPoints$;
   }
 
   getCompanyNameToSymbolMap(): Map<string, string> {

@@ -6,6 +6,7 @@ import {MarketService} from '../services/market.service';
 import {StockQuote} from '../services/stock.quote.response';
 import {StockKeyStats} from '../services/stock.key.stats.response';
 import {CompanyLogo} from '../services/company.logo.response';
+import {StockChartPoint} from '../services/stock.chart.point.response';
 
 @Component({
   selector: 'app-stock-detail',
@@ -39,11 +40,50 @@ export class StockDetailComponent implements OnInit {
   stockQuoteRetrieved: boolean;
   stockKeyStatsRetrieved: boolean;
 
+  // lineChart
+  public stockPrices: Array<any>;
+  public stockTimeLabels: Array<any>;
+  public lineChartOptions: any = {
+    responsive: true
+  };
+  public lineChartColors: Array<any> = [
+    { // grey
+      backgroundColor: 'rgba(148,159,177,0.2)',
+      borderColor: 'rgba(148,159,177,1)',
+      pointBackgroundColor: 'rgba(148,159,177,1)',
+      pointBorderColor: '#fff',
+      pointHoverBackgroundColor: '#fff',
+      pointHoverBorderColor: 'rgba(148,159,177,0.8)'
+    },
+    { // dark grey
+      backgroundColor: 'rgba(77,83,96,0.2)',
+      borderColor: 'rgba(77,83,96,1)',
+      pointBackgroundColor: 'rgba(77,83,96,1)',
+      pointBorderColor: '#fff',
+      pointHoverBackgroundColor: '#fff',
+      pointHoverBorderColor: 'rgba(77,83,96,1)'
+    },
+    { // grey
+      backgroundColor: 'rgba(148,159,177,0.2)',
+      borderColor: 'rgba(148,159,177,1)',
+      pointBackgroundColor: 'rgba(148,159,177,1)',
+      pointBorderColor: '#fff',
+      pointHoverBackgroundColor: '#fff',
+      pointHoverBorderColor: 'rgba(148,159,177,0.8)'
+    }
+  ];
+  public lineChartLegend = true;
+  public lineChartType = 'line';
+
   constructor(private route: ActivatedRoute, private marketService: MarketService) {
     this.companyDetailsRetrieved = false;
     this.stockQuoteRetrieved = false;
     this.stockKeyStatsRetrieved = false;
     this.stockFound = true;
+
+    // Stock chart setup
+    this.stockPrices = [{data: []}];
+    this.stockTimeLabels = [];
   }
 
   ngOnInit() {
@@ -93,6 +133,13 @@ export class StockDetailComponent implements OnInit {
         this.companyDebt = this.formatLongNumber(stockKeyStats.debt);
         this.stockKeyStatsRetrieved = true;
       });
+
+      // Stock Chart
+      const stockChartPointsObservable: Observable<StockChartPoint[]> = this.marketService.getStockChartPoints(this.companySymbol, '1d');
+      stockChartPointsObservable.subscribe(stockChartPoints => {
+        this.stockPrices = [({data: stockChartPoints.map(stockChartPoint => stockChartPoint.average)})];
+        this.stockTimeLabels = [(stockChartPoints.map(stockChartPoint => stockChartPoint.minute))];
+      });
     });
   }
 
@@ -106,4 +153,12 @@ export class StockDetailComponent implements OnInit {
     }
   }
 
+  // events
+  public chartClicked(e: any): void {
+    console.log(e);
+  }
+
+  public chartHovered(e: any): void {
+    console.log(e);
+  }
 }

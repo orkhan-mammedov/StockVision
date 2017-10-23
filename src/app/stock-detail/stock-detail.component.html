@@ -56,6 +56,19 @@
             <tr>
               <td class="table_cell"><b> Debt: </b> {{ companyDebt }}</td>
             </tr>
+            <tr>
+              <td id="stockChartContainer" class="table_cell" colspan="3" *ngIf="stockPrices != []">
+                <canvas baseChart width="400" height="400"
+                        [datasets]="stockPrices"
+                        [labels]="stockTimeLabels"
+                        [options]="lineChartOptions"
+                        [colors]="lineChartColors"
+                        [legend]="lineChartLegend"
+                        [chartType]="lineChartType"
+                        (chartHover)="chartHovered($event)"
+                        (chartClick)="chartClicked($event)"></canvas>
+              </td>
+            </tr>
           </table>
         </mat-card>
       </div>
