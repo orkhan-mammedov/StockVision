@@ -7,7 +7,7 @@
             <i class="material-icons">arrow_back</i>
           </button>
         </span>
-        <span class="x_large_font inline_centered">{{ companyName }}</span> <span class="helper_text">({{ companySymbol }})</span>
+        <span class="x_large_font inline_centered">{{ companyName }} <span class="helper_text normal_font">({{ companySymbol }})</span> </span>
         &nbsp;&nbsp;&nbsp;&nbsp;
         <span class="inline_centered"><img class="resize" src="{{ companyLogoUrl }}" alt="Company Logo"></span>
       </div>
@@ -62,11 +62,25 @@
                         [datasets]="stockPrices"
                         [labels]="stockTimeLabels"
                         [options]="lineChartOptions"
-                        [colors]="lineChartColors"
-                        [legend]="lineChartLegend"
                         [chartType]="lineChartType"
                         (chartHover)="chartHovered($event)"
                         (chartClick)="chartClicked($event)"></canvas>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="3" class="stock_time_period_list_holder">
+                <div class="centered_horizontal_flow_section">
+                  <div class="centered_vertical_flow_section tabs_holder">
+                    <mat-chip-list (change)="stockTimePeriodChanged($event)" (click)="stockTimePeriodChanged($event)">
+                      <mat-chip color="accent">5Y</mat-chip>
+                      <mat-chip color="accent">2Y</mat-chip>
+                      <mat-chip color="accent">1Y</mat-chip>
+                      <mat-chip color="accent">6M</mat-chip>
+                      <mat-chip color="accent">1M</mat-chip>
+                      <mat-chip color="accent" selected="true">1D</mat-chip>
+                    </mat-chip-list>
+                  </div>
+                </div>
               </td>
             </tr>
           </table>

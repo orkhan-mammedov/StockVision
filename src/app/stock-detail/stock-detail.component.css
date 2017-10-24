@@ -10,6 +10,10 @@
   max-width: 900px;
 }
 
+.stock_time_period_list_holder {
+  text-align: right;
+}
+
 /* unvisited link */
 a:link {
   color: black;

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {Observable} from 'rxjs/Observable';
 import {CompanyDetails} from '../services/company.details.response';
@@ -7,6 +7,7 @@ import {StockQuote} from '../services/stock.quote.response';
 import {StockKeyStats} from '../services/stock.key.stats.response';
 import {CompanyLogo} from '../services/company.logo.response';
 import {StockChartPoint} from '../services/stock.chart.point.response';
+import {BaseChartDirective} from 'ng2-charts';
 
 @Component({
   selector: 'app-stock-detail',
@@ -41,38 +42,15 @@ export class StockDetailComponent implements OnInit {
   stockKeyStatsRetrieved: boolean;
 
   // lineChart
+  @ViewChild(BaseChartDirective)
+  public chart: BaseChartDirective;
   public stockPrices: Array<any>;
   public stockTimeLabels: Array<any>;
   public lineChartOptions: any = {
-    responsive: true
+    legend: {
+      display: false
+    },
   };
-  public lineChartColors: Array<any> = [
-    { // grey
-      backgroundColor: 'rgba(148,159,177,0.2)',
-      borderColor: 'rgba(148,159,177,1)',
-      pointBackgroundColor: 'rgba(148,159,177,1)',
-      pointBorderColor: '#fff',
-      pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgba(148,159,177,0.8)'
-    },
-    { // dark grey
-      backgroundColor: 'rgba(77,83,96,0.2)',
-      borderColor: 'rgba(77,83,96,1)',
-      pointBackgroundColor: 'rgba(77,83,96,1)',
-      pointBorderColor: '#fff',
-      pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgba(77,83,96,1)'
-    },
-    { // grey
-      backgroundColor: 'rgba(148,159,177,0.2)',
-      borderColor: 'rgba(148,159,177,1)',
-      pointBackgroundColor: 'rgba(148,159,177,1)',
-      pointBorderColor: '#fff',
-      pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgba(148,159,177,0.8)'
-    }
-  ];
-  public lineChartLegend = true;
   public lineChartType = 'line';
 
   constructor(private route: ActivatedRoute, private marketService: MarketService) {
@@ -137,8 +115,17 @@ export class StockDetailComponent implements OnInit {
       // Stock Chart
       const stockChartPointsObservable: Observable<StockChartPoint[]> = this.marketService.getStockChartPoints(this.companySymbol, '1d');
       stockChartPointsObservable.subscribe(stockChartPoints => {
-        this.stockPrices = [({data: stockChartPoints.map(stockChartPoint => stockChartPoint.average)})];
-        this.stockTimeLabels = [(stockChartPoints.map(stockChartPoint => stockChartPoint.minute))];
+        const stockChartPointsFiltered = stockChartPoints.filter(stockChartPoint => stockChartPoint.average > 0);
+        const stockPricesArray = stockChartPointsFiltered.map(stockChartPoint => stockChartPoint.average);
+        const stockTimePeriodsArray = stockChartPointsFiltered.map(stockChartPoint => stockChartPoint.minute);
+
+        for (let i = 0; i < stockPricesArray.length; i = i + 1) {
+          this.stockPrices[0].data.push(stockPricesArray[i]);
+          this.stockTimeLabels.push(stockTimePeriodsArray[i]);
+        }
+        this.chart.chart.update();
+        // this.stockPrices = [({data: stockChartPointsFiltered.map(stockChartPoint => stockChartPoint.average)})];
+        // this.stockTimeLabels = (stockChartPointsFiltered.map(stockChartPoint => stockChartPoint.minute));
       });
     });
   }
@@ -151,6 +138,10 @@ export class StockDetailComponent implements OnInit {
     } else {
       return x.toLocaleString();
     }
+  }
+
+  stockTimePeriodChanged(e: any): void {
+    console.log(e);
   }
 
   // events
