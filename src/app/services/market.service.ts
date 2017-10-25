@@ -116,6 +116,12 @@ export class MarketService {
     const stockChartPoints$: Observable<StockChartPoint[]> = stockChartPointsSubject.asObservable();
 
     this.httpClient.get<StockChartPoint[]>(this._getEndpointURL('/stock/' + companySymbol + '/chart/' + range)).subscribe(data => {
+      if (range.toLocaleLowerCase() !== '1d') {
+        data.map(stockChartPoint => {
+          stockChartPoint.average = (stockChartPoint.low + stockChartPoint.high) / 2;
+          return stockChartPoint;
+        });
+      }
       stockChartPointsSubject.next(data);
     });
 

@@ -71,14 +71,14 @@
               <td colspan="3" class="stock_time_period_list_holder">
                 <div class="centered_horizontal_flow_section">
                   <div class="centered_vertical_flow_section tabs_holder">
-                    <mat-chip-list (change)="stockTimePeriodChanged($event)" (click)="stockTimePeriodChanged($event)">
-                      <mat-chip color="accent">5Y</mat-chip>
-                      <mat-chip color="accent">2Y</mat-chip>
-                      <mat-chip color="accent">1Y</mat-chip>
-                      <mat-chip color="accent">6M</mat-chip>
-                      <mat-chip color="accent">1M</mat-chip>
-                      <mat-chip color="accent" selected="true">1D</mat-chip>
-                    </mat-chip-list>
+                    <div class="button-row">
+                      <button mat-mini-fab #5Y (click)="stockTimePeriodChanged('5Y')">5Y</button>
+                      <button mat-mini-fab #2Y (click)="stockTimePeriodChanged('2Y')">2Y</button>
+                      <button mat-mini-fab #1Y (click)="stockTimePeriodChanged('1Y')">1Y</button>
+                      <button mat-mini-fab #6M (click)="stockTimePeriodChanged('6M')">6M</button>
+                      <button mat-mini-fab #1M (click)="stockTimePeriodChanged('1M')">1M</button>
+                      <button mat-mini-fab #1D (click)="stockTimePeriodChanged('1D')" color="primary">1D</button>
+                    </div>
                   </div>
                 </div>
               </td>

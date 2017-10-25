@@ -8,6 +8,8 @@ import {StockKeyStats} from '../services/stock.key.stats.response';
 import {CompanyLogo} from '../services/company.logo.response';
 import {StockChartPoint} from '../services/stock.chart.point.response';
 import {BaseChartDirective} from 'ng2-charts';
+import {MatButton} from '@angular/material';
+import {isUndefined} from 'util';
 
 @Component({
   selector: 'app-stock-detail',
@@ -41,17 +43,34 @@ export class StockDetailComponent implements OnInit {
   stockQuoteRetrieved: boolean;
   stockKeyStatsRetrieved: boolean;
 
-  // lineChart
+  // Chart switches
+  // TODO: Consider better approach
+  @ViewChild('5Y')
+  chart5YSwitch: MatButton;
+  @ViewChild('2Y')
+  chart2YSwitch: MatButton;
+  @ViewChild('1Y')
+  chart1YSwitch: MatButton;
+  @ViewChild('6M')
+  chart6MSwitch: MatButton;
+  @ViewChild('1M')
+  chart1MSwitch: MatButton;
+  @ViewChild('1D')
+  chart1DSwitch: MatButton;
+  currentChartSwitch: MatButton;
+  currentChartSwitchName: string;
+
+  // Chart
   @ViewChild(BaseChartDirective)
-  public chart: BaseChartDirective;
-  public stockPrices: Array<any>;
-  public stockTimeLabels: Array<any>;
-  public lineChartOptions: any = {
+  chart: BaseChartDirective;
+  stockPrices: Array<any>;
+  stockTimeLabels: Array<any>;
+  lineChartOptions: any = {
     legend: {
       display: false
     },
   };
-  public lineChartType = 'line';
+  lineChartType = 'line';
 
   constructor(private route: ActivatedRoute, private marketService: MarketService) {
     this.companyDetailsRetrieved = false;
@@ -115,19 +134,26 @@ export class StockDetailComponent implements OnInit {
       // Stock Chart
       const stockChartPointsObservable: Observable<StockChartPoint[]> = this.marketService.getStockChartPoints(this.companySymbol, '1d');
       stockChartPointsObservable.subscribe(stockChartPoints => {
-        const stockChartPointsFiltered = stockChartPoints.filter(stockChartPoint => stockChartPoint.average > 0);
-        const stockPricesArray = stockChartPointsFiltered.map(stockChartPoint => stockChartPoint.average);
-        const stockTimePeriodsArray = stockChartPointsFiltered.map(stockChartPoint => stockChartPoint.minute);
-
-        for (let i = 0; i < stockPricesArray.length; i = i + 1) {
-          this.stockPrices[0].data.push(stockPricesArray[i]);
-          this.stockTimeLabels.push(stockTimePeriodsArray[i]);
-        }
-        this.chart.chart.update();
-        // this.stockPrices = [({data: stockChartPointsFiltered.map(stockChartPoint => stockChartPoint.average)})];
-        // this.stockTimeLabels = (stockChartPointsFiltered.map(stockChartPoint => stockChartPoint.minute));
+        this.processStockChartPoints(stockChartPoints);
       });
     });
+  }
+
+  private processStockChartPoints(stockChartPoints) {
+    const stockChartPointsFiltered = stockChartPoints.filter(stockChartPoint => stockChartPoint.average > 0);
+    const stockPricesArray = stockChartPointsFiltered.map(stockChartPoint => stockChartPoint.average);
+    const stockTimePeriodsArray = stockChartPointsFiltered.map(stockChartPoint => stockChartPoint.minute);
+
+    // Clear existing data points
+    this.stockPrices[0].data.splice(0, this.stockPrices[0].data.length);
+    this.stockTimeLabels.splice(0, this.stockTimeLabels.length);
+
+    // Push new data points
+    for (let i = 0; i < stockPricesArray.length; i = i + 1) {
+      this.stockPrices[0].data.push(stockPricesArray[i]);
+      this.stockTimeLabels.push(stockTimePeriodsArray[i]);
+    }
+    this.chart.chart.update();
   }
 
   formatLongNumber(x: number): string {
@@ -140,8 +166,43 @@ export class StockDetailComponent implements OnInit {
     }
   }
 
-  stockTimePeriodChanged(e: any): void {
-    console.log(e);
+  stockTimePeriodChanged(chartSwitchName: string): void {
+    if (chartSwitchName === this.currentChartSwitchName) {
+      return;
+    }
+
+    if (!isUndefined(this.currentChartSwitch)) {
+      this.currentChartSwitch.color = 'accent';
+    } else { // entered only once on the first switch
+      this.chart1DSwitch.color = 'accent';
+    }
+
+    if (chartSwitchName === '1D') {
+      this.currentChartSwitch = this.chart1DSwitch;
+      this.currentChartSwitchName = '1D';
+    } else if (chartSwitchName === '1M') {
+      this.currentChartSwitch = this.chart1MSwitch;
+      this.currentChartSwitchName = '1M';
+    } else if (chartSwitchName === '6M') {
+      this.currentChartSwitch = this.chart6MSwitch;
+      this.currentChartSwitchName = '6M';
+    } else if (chartSwitchName === '1Y') {
+      this.currentChartSwitch = this.chart1YSwitch;
+      this.currentChartSwitchName = '1Y';
+    } else if (chartSwitchName === '2Y') {
+      this.currentChartSwitch = this.chart2YSwitch;
+      this.currentChartSwitchName = '2Y';
+    } else if (chartSwitchName === '5Y') {
+      this.currentChartSwitch = this.chart5YSwitch;
+      this.currentChartSwitchName = '5Y';
+    }
+    this.currentChartSwitch.color = 'primary';
+
+    const stockChartPointsObservable: Observable<StockChartPoint[]> =
+      this.marketService.getStockChartPoints(this.companySymbol, this.currentChartSwitchName);
+    stockChartPointsObservable.subscribe(stockChartPoints => {
+      this.processStockChartPoints(stockChartPoints);
+    });
   }
 
   // events
