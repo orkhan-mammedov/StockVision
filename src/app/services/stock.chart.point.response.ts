@@ -15,4 +15,5 @@ export class StockChartPoint {
   change: number;
   changePercent: number;
   vwap: number;
+  pointInTime: string;
 }

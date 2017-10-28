@@ -119,6 +119,12 @@ export class MarketService {
       if (range.toLocaleLowerCase() !== '1d') {
         data.map(stockChartPoint => {
           stockChartPoint.average = (stockChartPoint.low + stockChartPoint.high) / 2;
+          stockChartPoint.pointInTime = stockChartPoint.date;
+          return stockChartPoint;
+        });
+      } else {
+        data.map(stockChartPoint => {
+          stockChartPoint.pointInTime = stockChartPoint.minute;
           return stockChartPoint;
         });
       }

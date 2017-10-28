@@ -142,7 +142,7 @@ export class StockDetailComponent implements OnInit {
   private processStockChartPoints(stockChartPoints) {
     const stockChartPointsFiltered = stockChartPoints.filter(stockChartPoint => stockChartPoint.average > 0);
     const stockPricesArray = stockChartPointsFiltered.map(stockChartPoint => stockChartPoint.average);
-    const stockTimePeriodsArray = stockChartPointsFiltered.map(stockChartPoint => stockChartPoint.minute);
+    const stockTimePeriodsArray = stockChartPointsFiltered.map(stockChartPoint => stockChartPoint.pointInTime);
 
     // Clear existing data points
     this.stockPrices[0].data.splice(0, this.stockPrices[0].data.length);
