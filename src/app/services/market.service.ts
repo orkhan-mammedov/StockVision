@@ -118,7 +118,7 @@ export class MarketService {
     this.httpClient.get<StockChartPoint[]>(this._getEndpointURL('/stock/' + companySymbol + '/chart/' + range)).subscribe(data => {
       if (range.toLocaleLowerCase() !== '1d') {
         data.map(stockChartPoint => {
-          stockChartPoint.average = (stockChartPoint.low + stockChartPoint.high) / 2;
+          stockChartPoint.average = stockChartPoint.high;
           stockChartPoint.pointInTime = stockChartPoint.date;
           return stockChartPoint;
         });
