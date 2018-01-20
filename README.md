@@ -1,5 +1,7 @@
 # StockVision
 
+Hosted here: https://orkhan-mammedov.github.io/StockVision/
+
 StockVision is an Angular application that allows users to discover stock data and news. With help of StockVision, users can discover news specific to a company and also all the essential financial data about a company, such as stock price, revenue, 52 week high/low, market capitaliztion and etc. Users are also presented with an intuitive chart that prodvides information about the stock price of a company over selected period of time.
 
 ## Screenshots
